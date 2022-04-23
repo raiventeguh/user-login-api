@@ -1,0 +1,18 @@
+[
+  {
+    "id": {"$oid":"5a68fdc3615eda645bc6bdec"},
+    "name": "Admin Joe",
+    "email": "admin@gmail.com",
+    "age": 40,
+    "admin": true,
+    "password": "SECRET"
+  },
+  {
+    "id": {"$oid":"5a68fdc3615eda645bc6bded"},
+    "name": "User Ford",
+    "email": "user@gmail.com",
+    "age": 45,
+    "admin": false,
+    "password": "SECRET"
+  }
+]

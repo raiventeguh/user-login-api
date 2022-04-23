@@ -1,0 +1,220 @@
+basePath: /
+definitions:
+  common.Auth:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - password
+    type: object
+  common.User:
+    properties:
+      admin:
+        type: boolean
+      age:
+        type: integer
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - age
+    - email
+    - name
+    - password
+    type: object
+  echo.Map:
+    additionalProperties: true
+    type: object
+  services.LoginResponse:
+    properties:
+      data:
+        $ref: '#/definitions/echo.Map'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  services.UserResponse:
+    properties:
+      data:
+        $ref: '#/definitions/echo.Map'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+host: localhost:8081
+info:
+  contact: {}
+  description: User Application Login & User
+  title: User Application
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      - text/xml
+      description: Login
+      parameters:
+      - description: Auth
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/common.Auth'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.LoginResponse'
+      summary: Login
+      tags:
+      - login
+  /user:
+    get:
+      consumes:
+      - application/json
+      - text/xml
+      description: Find all a user item
+      parameters:
+      - description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.UserResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Find All User
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      - text/xml
+      description: Create a user item
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/common.User'
+      - description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.UserResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Create User
+      tags:
+      - users
+  /user/{userId}:
+    delete:
+      consumes:
+      - application/json
+      - text/xml
+      description: Delete a user item
+      parameters:
+      - description: User Id
+        in: path
+        name: userId
+        required: true
+        type: string
+      - description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.UserResponse'
+      summary: Delete a User
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      - text/xml
+      description: Find a user item
+      parameters:
+      - description: User Id
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.UserResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Find a User
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      - text/xml
+      description: Edit a user item
+      parameters:
+      - description: User Id
+        in: path
+        name: userId
+        required: true
+        type: string
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/common.User'
+      - description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.UserResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Edit a User
+      tags:
+      - users
+swagger: "2.0"
