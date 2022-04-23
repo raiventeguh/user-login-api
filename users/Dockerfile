@@ -18,9 +18,6 @@ RUN go mod download
 #
 ## Copy the code into the container
 COPY . .
-RUN go install github.com/swaggo/swag/cmd/swag@latest
-RUN swag init --parseDependency --parseInternal
-COPY . .
 
 ## Build the application
 RUN go build -o /main main.go
